@@ -49,6 +49,8 @@ function updateVolumeWidget(w, notify)
     end
     return math.floor(totalVolume/channels)
   end
+  -- this sh command 
+  -- sh -c "amixer get 'Master' | sed -n 's/.*\\[\\([[:digit:]]*\\)%].*\\[\\([[:alpha:]]*\\)\\].*/\\1|\\2/p'"
   awful.spawn.easy_async(
     [[sh -c "amixer get 'Master' | sed -n 's/.*\\[\\(.*\\)%].*/\\1/p'"]],
     function(stdout)
