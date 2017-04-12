@@ -4,7 +4,7 @@ local wibox = wibox or require("wibox")
 local naughty = naughty or require("naughty")
 local beautiful = beautiful or require("beautiful")
 
-local updateRate = 0.2
+local updateRate = 2
 local volumeWidgetNotificationID = -1
 
 volumeWidget = wibox.widget {
