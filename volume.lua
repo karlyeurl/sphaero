@@ -7,13 +7,35 @@ local beautiful = beautiful or require("beautiful")
 local updateRate = 2
 local volumeWidgetNotificationID = -1
 
+--local volBackText = "♪"
+--local volOnText = ""
+--local volOffText = "="
+--local textWidgetFont = "sans 8"
+local volBackText = ""
+local volOnText = ""
+local volOffText = ""
+local textWidgetFont = "sans 12"
+
 volumeWidget = wibox.widget {
    {  
+      {
+         id              = "volumeTextBack",
+         font            = textWidgetFont,
+         markup          = volBackText,
+         widget          = wibox.widget.textbox,
+         align           = 'center',
+         forced_width    = 15,
+      },
+      {
+         id              = "volumeTextFront",
+         font            = textWidgetFont,
+         markup          = volOnText,
+         widget          = wibox.widget.textbox,
+         align           = 'center',
+         forced_width    = 15,
+      },
       id              = "volumeText",
-      markup          = "🔈",
-      widget          = wibox.widget.textbox,
-      align           = 'center',
-      forced_width    = 15,
+      layout = wibox.layout.stack
    },
    {
       {
@@ -61,11 +83,11 @@ function updateVolumeWidget(w, notify)
       function(sound)
         sound = string.gsub(sound, "\n", "")
         if sound == "off" then
-          w.volumeText.markup = "🔇"
+          w.volumeText.volumeTextFront.markup = volOffText
           w.volumeContainer.volumeProgressbar.color = "#ff0000"
           w.volumeContainer.volumeProgressbar.background_color = "#000000aa"
         else
-          w.volumeText.markup = "🔈"
+          w.volumeText.volumeTextFront.markup = volOnText
           w.volumeContainer.volumeProgressbar.color = "#4444ff"
           w.volumeContainer.volumeProgressbar.background_color = "#000000aa"
         end
