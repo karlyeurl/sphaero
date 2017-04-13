@@ -5,12 +5,16 @@ local naughty = naughty or require("naughty")
 local beautiful = beautiful or require("beautiful")
 
 local updateRate = 2
+local memText = ""
+local memTextFont = "sans 11"
+--local memText = "⚙"
 
 memoryWidget = wibox.widget {
    -- todo: instead of putting a space, center the text and shift it a little bit
    {
       id              = "memoryText",
-      markup          = "⚙",
+      markup          = memText,
+      font            = memTextFont,
       widget          = wibox.widget.textbox,
       align           = 'center',
       forced_width    = 15,
