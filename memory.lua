@@ -1,7 +1,6 @@
 local gears = gears or require("gears")
 local awful = awful or require("awful")
 local wibox = wibox or require("wibox")
-local naughty = naughty or require("naughty")
 local beautiful = beautiful or require("beautiful")
 
 local updateRate = 2
