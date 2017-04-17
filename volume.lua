@@ -11,10 +11,16 @@ local volumeWidgetNotificationID = -1
 --local volOnText = ""
 --local volOffText = "="
 --local textWidgetFont = "sans 8"
-local volBackText = ""
-local volOnText = ""
-local volOffText = ""
-local textWidgetFont = "sans 12"
+--local volbacktext = ""
+--local volontext = ""
+--local volofftext = ""
+--local textwidgetfont = "sans 12"
+local volBackText = ""
+local volOnText = ""
+--local volofftext = "<span color=\"#FF0000\">\\</span>"
+local volOffText = "<span color=\"#AA0000\"><b>\\</b></span>"
+local textWidgetFont = "sans 14"
+
 
 volumeWidget = wibox.widget {
    {  
