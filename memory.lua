@@ -3,7 +3,8 @@ local awful = awful or require("awful")
 local wibox = wibox or require("wibox")
 local beautiful = beautiful or require("beautiful")
 
-local updateRate = 2
+local updateRate = 1
+local gcStep = 45
 local memText = ""
 local memTextFont = "sans 11"
 --local memText = "⚙"
@@ -43,6 +44,7 @@ memoryWidget = wibox.widget {
 }
 
 function updateMemoryWidget(w)
+  collectgarbage("step", gcStep)
   awful.spawn.easy_async(
     [[sh -c "free | grep Mem | awk '{print $3/$2 * 100.0}'"]],
     function(stdout)

@@ -4,6 +4,12 @@ local wibox = wibox or require("wibox")
 local naughty = naughty or require("naughty")
 local beautiful = beautiful or require("beautiful")
 
+local updateRate = 5
+local gcStep = 85
+
+local batteryAlert = true
+local batteryCritical = 15
+
 batteryWidget = wibox.widget {
    -- todo: instead of putting a space, center the text and shift it a little bit
    {
@@ -93,6 +99,7 @@ end
 
 -- async update for the battery values
 function batteryUpdater(w)
+  collectgarbage("step", gcStep)
   awful.spawn.easy_async("cat /sys/class/power_supply/BAT0/status", function(stdout, stderr, reason, exit_code)
     batteryStatus = string.gsub(stdout, "\n", "")
     awful.spawn.easy_async("cat /sys/class/power_supply/BAT0/capacity", function(stdout, stderr, reason, exit_code)
@@ -105,9 +112,6 @@ end
 
 batteryWidget:connect_signal("button::press", function() batteryUpdater(batteryWidget) end)
 batteryWidget:connect_signal("button::press", function() showBatteryLevel() end)
-
-local batteryAlert = true
-local batteryCritical = 15
 
 function batteryWidgetUpdate(w)
    local status = batteryStatus
@@ -162,7 +166,7 @@ batteryWidgetUpdate(batteryWidget)
 
 
 gears.timer {
-    timeout   = 10,
+    timeout   = updateRate,
     autostart = true,
     callback  = function() batteryUpdater(batteryWidget) end
 }

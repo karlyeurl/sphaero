@@ -4,7 +4,8 @@ local wibox = wibox or require("wibox")
 local naughty = naughty or require("naughty")
 local beautiful = beautiful or require("beautiful")
 
-local updateRate = 2
+local updateRate = 0.5
+local gcStep = 120
 local volumeWidgetNotificationID = -1
 
 --local volBackText = "♪"
@@ -79,6 +80,7 @@ function updateVolumeWidget(w, notify)
   end
   -- this sh command 
   -- sh -c "amixer get 'Master' | sed -n 's/.*\\[\\([[:digit:]]*\\)%].*\\[\\([[:alpha:]]*\\)\\].*/\\1|\\2/p'"
+  collectgarbage("step", gcStep)
   awful.spawn.easy_async(
     [[sh -c "amixer get 'Master' | sed -n 's/.*\\[\\(.*\\)%].*/\\1/p'"]],
     function(stdout)
