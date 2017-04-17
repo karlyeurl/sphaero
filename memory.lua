@@ -4,7 +4,8 @@ local wibox = wibox or require("wibox")
 local naughty = naughty or require("naughty")
 local beautiful = beautiful or require("beautiful")
 
-local updateRate = 2
+local updateRate = 1
+local gcStep = 45
 
 memoryWidget = wibox.widget {
    -- todo: instead of putting a space, center the text and shift it a little bit
@@ -40,6 +41,7 @@ memoryWidget = wibox.widget {
 }
 
 function updateMemoryWidget(w)
+  collectgarbage("step", gcStep)
   awful.spawn.easy_async(
     [[sh -c "free | grep Mem | awk '{print $3/$2 * 100.0}'"]],
     function(stdout)

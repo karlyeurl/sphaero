@@ -4,7 +4,8 @@ local wibox = wibox or require("wibox")
 local naughty = naughty or require("naughty")
 local beautiful = beautiful or require("beautiful")
 
-local updateRate = 2
+local updateRate = 0.5
+local gcStep = 120
 local volumeWidgetNotificationID = -1
 
 volumeWidget = wibox.widget {
@@ -49,6 +50,7 @@ function updateVolumeWidget(w, notify)
     end
     return math.floor(totalVolume/channels)
   end
+  collectgarbage("step", gcStep)
   awful.spawn.easy_async(
     [[sh -c "amixer get 'Master' | sed -n 's/.*\\[\\(.*\\)%].*/\\1/p'"]],
     function(stdout)
