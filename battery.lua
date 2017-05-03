@@ -66,31 +66,31 @@ function showBatteryLevel()
   local batteryAlertText = ""
   if status == "Discharging" then
     if capa > 50 then
-      batteryAlertIcon = "/usr/share/icons/Mint-X/status/scalable/battery-good-symbolic.svg"
+      batteryAlertIcon = beautiful.battery_good or awful.util.get_configuration_dir() .. "sphaero/notification_icons/battery/battery-good-symbolic.svg"
       batteryAlertText = "Battery remaining is: " .. math.min(capa, 100) .. "%"
     elseif capa > 20 then
-      batteryAlertIcon = "/usr/share/icons/Mint-X/status/scalable/battery-low-symbolic.svg"
+      batteryAlertIcon = beautiful.battery_low or awful.util.get_configuration_dir() .. "sphaero/notification_icons/battery/battery-low-symbolic.svg"
       batteryAlertText = "Battery low: " .. capa .. "%"
     else
-      batteryAlertIcon = "/usr/share/icons/Mint-X/status/scalable/battery-caution-symbolic.svg"
+      batteryAlertIcon = beautiful.battery_critical or awful.util.get_configuration_dir() .. "sphaero/notification_icons/battery/battery-caution-symbolic.svg"
       batteryAlertText = "Battery critically low: " .. capa .. "%"
     end
   elseif status == "Charging" then
     if capa > 99 then
-      batteryAlertIcon = "/usr/share/icons/Mint-X/status/scalable/battery-full-charging-symbolic.svg"
+      batteryAlertIcon = beautiful.battery_full_charging or awful.util.get_configuration_dir() .. "sphaero/notification_icons/battery/battery-full-charging-symbolic.svg"
       batteryAlertText = "Battery is full: 100%"
     elseif capa > 50 then
-      batteryAlertIcon = "/usr/share/icons/Mint-X/status/scalable/battery-good-charging-symbolic.svg"
+      batteryAlertIcon = beautiful.battery_good_charging or awful.util.get_configuration_dir() .. "sphaero/notification_icons/battery/battery-good-charging-symbolic.svg"
       batteryAlertText = "Battery charging level: " .. capa .. "%"
     elseif capa > 20 then
-      batteryAlertIcon = "/usr/share/icons/Mint-X/status/scalable/battery-low-charging-symbolic.svg"
+      batteryAlertIcon = beautiful.battery_low_charging or awful.util.get_configuration_dir() .. "sphaero/notification_icons/battery/battery-low-charging-symbolic.svg"
       batteryAlertText = "Battery low, charging: " .. capa .. "%"
     else
-      batteryAlertIcon = "/usr/share/icons/Mint-X/status/scalable/battery-caution-charging-symbolic.svg"
+      batteryAlertIcon = beautiful.battery_critical_charging or awful.util.get_configuration_dir() .. "sphaero/notification_icons/battery/battery-caution-charging-symbolic.svg"
       batteryAlertText = "Battery critically low, charging: " .. capa .. "%"
     end
   else
-    batteryAlertIcon = "/usr/share/icons/Mint-X/status/scalable/battery-full-charged-symbolic.svg"
+    batteryAlertIcon = beautiful.battery_full_charged or awful.util.get_configuration_dir() .. "sphaero/notification_icons/battery/battery-full-charged-symbolic.svg"
     batteryAlertText = "Battery is full: " .. math.min(capa, 100) .. "%"
   end
   local notification = naughty.notify({ icon = batteryAlertIcon, text = batteryAlertText, timeout = 2, replaces_id = lastBatteryAlertID})
