@@ -18,7 +18,6 @@ local volumeWidgetNotificationID = -1
 --local textwidgetfont = "sans 12"
 local volBackText = ""
 local volOnText = ""
---local volofftext = "<span color=\"#FF0000\">\\</span>"
 local volOffText = "<span color=\"#AA0000\"><b>\\</b></span>"
 local textWidgetFont = "sans 14"
 
@@ -100,17 +99,21 @@ function updateVolumeWidget(w, notify)
           w.volumeContainer.volumeProgressbar.background_color = "#000000aa"
         end
         if notify then
+          local volumeTextNotif = "Volume level: "
+          local volumeIconNotif = ""
           if sound == "off" then
-            naughty.notify({text = "Muted. Volume level: " .. soundVolume .. "%", icon = "/usr/share/icons/Mint-X/status/scalable/audio-volume-muted-symbolic.svg", timeout = 2, replaces_id = volumeWidgetNotificationID})
+            volumeTextNotif = "Muted. Volume level: "
+            volumeIconNotif = beautiful.volume_muted or awful.util.get_configuration_dir() .. "sphaero/notification_icons/volume/audio-volume-muted-symbolic.svg"
           elseif soundVolume > 66 then
-            naughty.notify({text = "Volume level: " .. soundVolume .. "%", icon = "/usr/share/icons/Mint-X/status/scalable/audio-volume-high-symbolic.svg", timeout = 2, replaces_id = volumeWidgetNotificationID})
+            volumeIconNotif = beautiful.volume_high or awful.util.get_configuration_dir() .. "sphaero/notification_icons/volume/audio-volume-high-symbolic.svg"
           elseif soundVolume > 33 then
-            naughty.notify({text = "Volume level: " .. soundVolume .. "%", icon = "/usr/share/icons/Mint-X/status/scalable/audio-volume-medium-symbolic.svg", timeout = 2, replaces_id = volumeWidgetNotificationID})
+            volumeIconNotif = beautiful.volume_medium or awful.util.get_configuration_dir() .. "sphaero/notification_icons/volume/audio-volume-medium-symbolic.svg"
           elseif soundVolume > 0 then
-            naughty.notify({text = "Volume level: " .. soundVolume .. "%", icon = "/usr/share/icons/Mint-X/status/scalable/audio-volume-low-symbolic.svg", timeout = 2, replaces_id = volumeWidgetNotificationID})
+            volumeIconNotif = beautiful.volume_low or awful.util.get_configuration_dir() .. "sphaero/notification_icons/volume/audio-volume-low-symbolic.svg"
           else
-            naughty.notify({text = "Volume level: " .. soundVolume .. "%", icon = "/usr/share/icons/Mint-X/status/scalable/audio-volume-muted-symbolic.svg", timeout = 2, replaces_id = volumeWidgetNotificationID})
+            volumeIconNotif = beautiful.volume_muted or awful.util.get_configuration_dir() .. "sphaero/notification_icons/volume/audio-volume-muted-symbolic.svg"
          end
+         naughty.notify({text = volumeTextNotif .. soundVolume .. "%", icon = volumeIconNotif, timeout = 2, replaces_id = volumeWidgetNotificationID})
         end
       end)
     end)
