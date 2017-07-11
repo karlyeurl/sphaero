@@ -5,9 +5,9 @@ local beautiful = beautiful or require("beautiful")
 
 local updateRate = 1
 local gcStep = 45
-local memText = ""
-local memTextFont = "sans 11"
---local memText = "⚙"
+--local memText = ""
+local memText = "⚙"
+local memTextFont = "sans 9"
 
 memoryWidget = wibox.widget {
    -- todo: instead of putting a space, center the text and shift it a little bit
