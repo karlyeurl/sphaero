@@ -94,6 +94,7 @@ function showBatteryLevel()
     batteryAlertText = "Battery is full: " .. math.min(capa, 100) .. "%"
   end
   local notification = naughty.notify({ icon = batteryAlertIcon, text = batteryAlertText, timeout = 2, replaces_id = lastBatteryAlertID})
+  collectgarbage("step", gcStep)
   lastBatteryAlertID = notification.id
 end
 
